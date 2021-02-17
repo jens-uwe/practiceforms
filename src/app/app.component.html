@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"
+      directiveDivView='{"backgroundColor": "lightblue", "title": "Form"}'>
+      <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <label for="email">Email: </label>
+
+        <input 
+          type="email"
+          name = "email"
+          id="email"
+          class="form-control"
+          required
+          email
+          ngModel
+          #email = "ngModel"
+        >
+
+        <span class="help-block" *ngIf="!email.valid">Please enter a valid email!</span>
+        <span class="help-block" *ngIf="email.valid">OK!</span>
+
+        <label for="subscription">Subscription level: </label>
+
+        <select 
+          name="subscription" 
+          id="subscription" 
+          class="form-control" 
+          required 
+          [ngModel]="'Advanced'">
+          <option *ngFor="let sub of subscriptions" [value]="sub">{{ sub }}</option>
+        </select>
+
+        <label for="password">Set password: </label>
+
+        <input 
+          type="password"
+          name = "password"
+          id="password"
+          class="form-control"
+          required
+          ngModel
+          #pwd = "ngModel"
+        >
+        <span class="help-block" *ngIf="!pwd.valid">Please enter a password!</span>
+        <span class="help-block" *ngIf="pwd.valid">OK!</span>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        
+      </form>
+    </div>
+    
+  </div>
+
+  <div class="row" *ngIf="!myForm.valid && myForm.touched">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"
+      directiveDivView='{"backgroundColor": "lightcoral", "title": "Warning!"}'>
+        <span>incorrect data found.</span>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="viewLastData">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"
+      directiveDivView='{"backgroundColor": "lightblue", "title": ":submitted Data"}'>
+        <p *ngFor="let keyvaluepair of lastData | keyvalue">{{ keyvaluepair.key }}: {{ keyvaluepair.value }}</p>
+    </div>
+  </div>
+
+</div>
